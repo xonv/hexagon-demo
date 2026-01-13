@@ -13,40 +13,25 @@ import java.util.stream.Collectors;
 public class TodoPersistenceAdapter implements TodoRepositoryPort {
 
     private final SpringDataTodoRepository todoRepository;
+    private final com.example.hexagon.infrastructure.adapter.out.persistence.mapper.TodoPersistenceMapper todoPersistenceMapper;
 
     @Override
     public Todo save(Todo todo) {
-        TodoJpaEntity entity = mapToEntity(todo);
+        TodoJpaEntity entity = todoPersistenceMapper.toEntity(todo);
         TodoJpaEntity savedEntity = todoRepository.save(entity);
-        return mapToDomain(savedEntity);
+        return todoPersistenceMapper.toDomain(savedEntity);
     }
 
     @Override
     public List<Todo> findAll() {
         return todoRepository.findAll().stream()
-                .map(this::mapToDomain)
+                .map(todoPersistenceMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
     public java.util.Optional<Todo> findById(Long id) {
         return todoRepository.findById(id)
-                .map(this::mapToDomain);
-    }
-
-    private TodoJpaEntity mapToEntity(Todo todo) {
-        return TodoJpaEntity.builder()
-                .id(todo.getId())
-                .title(todo.getTitle())
-                .completed(todo.isCompleted())
-                .build();
-    }
-
-    private Todo mapToDomain(TodoJpaEntity entity) {
-        return Todo.builder()
-                .id(entity.getId())
-                .title(entity.getTitle())
-                .completed(entity.isCompleted())
-                .build();
+                .map(todoPersistenceMapper::toDomain);
     }
 }
