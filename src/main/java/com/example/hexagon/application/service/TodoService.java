@@ -18,9 +18,13 @@ import com.example.hexagon.domain.exception.TodoNotFoundException;
 public class TodoService implements CreateTodoUseCase, GetTodoQuery, UpdateTodoUseCase {
 
     private final TodoRepositoryPort todoRepositoryPort;
+    private final com.example.hexagon.application.port.out.UserRepositoryPort userRepositoryPort;
 
     @Override
     public Todo createTodo(Todo todo) {
+        if (!userRepositoryPort.existsById(todo.getUserId())) {
+            throw new com.example.hexagon.domain.exception.UserNotFoundException(todo.getUserId());
+        }
         return todoRepositoryPort.save(todo);
     }
 

@@ -22,4 +22,8 @@ public class TodoJpaEntity {
     private Long id;
     private String title;
     private boolean completed;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserJpaEntity user;
 }

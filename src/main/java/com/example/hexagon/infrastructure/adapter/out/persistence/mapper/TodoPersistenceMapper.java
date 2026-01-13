@@ -6,7 +6,9 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface TodoPersistenceMapper {
+    @org.mapstruct.Mapping(source = "userId", target = "user.id")
     TodoJpaEntity toEntity(Todo todo);
 
+    @org.mapstruct.Mapping(source = "user.id", target = "userId")
     Todo toDomain(TodoJpaEntity entity);
 }

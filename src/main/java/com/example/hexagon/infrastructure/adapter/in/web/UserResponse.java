@@ -1,4 +1,4 @@
-package com.example.hexagon.domain;
+package com.example.hexagon.infrastructure.adapter.in.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Todo {
+public class UserResponse {
     private Long id;
-    private String title;
-    private boolean completed;
-    private Long userId;
+    private String username;
+    private String email;
 }

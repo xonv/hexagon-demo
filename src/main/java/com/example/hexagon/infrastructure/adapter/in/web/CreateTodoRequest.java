@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 public class CreateTodoRequest {
     @NotBlank(message = "Title is mandatory")
     private String title;
+
+    private Long userId;
 }

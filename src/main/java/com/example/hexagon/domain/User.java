@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Todo {
+public class User {
     private Long id;
-    private String title;
-    private boolean completed;
-    private Long userId;
+    private String username;
+    private String email;
 }
