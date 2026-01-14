@@ -13,4 +13,6 @@ public class TodoResponse {
     private Long id;
     private String title;
     private boolean completed;
+    private String ownerUsername;
+    private String ownerEmail;
 }

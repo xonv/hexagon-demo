@@ -22,8 +22,11 @@ public class TodoService implements CreateTodoUseCase, GetTodoQuery, UpdateTodoU
 
     @Override
     public Todo createTodo(Todo todo) {
-        if (!userRepositoryPort.existsById(todo.getUserId())) {
-            throw new com.example.hexagon.domain.exception.UserNotFoundException(todo.getUserId());
+        if (todo.getOwner() == null || todo.getOwner().getId() == null) {
+            throw new IllegalArgumentException("Todo must have an owner");
+        }
+        if (!userRepositoryPort.existsById(todo.getOwner().getId())) {
+            throw new com.example.hexagon.domain.exception.UserNotFoundException(todo.getOwner().getId());
         }
         return todoRepositoryPort.save(todo);
     }
