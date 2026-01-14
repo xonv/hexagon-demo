@@ -14,7 +14,10 @@ public interface TodoWebMapper {
     Todo toDomain(CreateTodoRequest request);
 
     @Mapping(target = "id", ignore = true) // ID is passed separately in update
+    @Mapping(target = "owner", ignore = true) // Owner cannot be changed via update
     Todo toDomain(UpdateTodoRequest request);
 
+    @Mapping(target = "ownerUsername", source = "owner.username")
+    @Mapping(target = "ownerEmail", source = "owner.email")
     TodoResponse toResponse(Todo todo);
 }
